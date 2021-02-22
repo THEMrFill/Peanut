@@ -27,7 +27,7 @@ class NewsRepositoryImpl(
 //        it.readText()
 //      }
 //      val result = Gson().fromJson<News>(jsonString, News::class.java)
-//      saveNews(result.posts)
+      saveNews(result.posts)
       UseCaseResult.Success(result)
     } catch (ex: Exception) {
       UseCaseResult.Error(ex)
