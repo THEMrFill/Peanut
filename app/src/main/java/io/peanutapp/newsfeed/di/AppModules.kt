@@ -12,6 +12,7 @@ import io.peanutapp.newsfeed.storage.NewsDao
 import io.peanutapp.newsfeed.storage.NewsDatabase
 import io.peanutapp.newsfeed.ui.detail.DetailViewModel
 import io.peanutapp.newsfeed.ui.main.MainViewModel
+import okhttp3.Credentials
 import okhttp3.OkHttpClient
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -51,8 +52,10 @@ fun createHttpClient(): OkHttpClient {
   client.readTimeout(30, TimeUnit.SECONDS)
   return client.addInterceptor {
     val original = it.request()
+    val credential = Credentials.basic("philiparnold", "password")
     val requestBuilder = original.newBuilder()
     requestBuilder.header("Content-Type", "application/json")
+    requestBuilder.header("Authorization", credential)
     val request = requestBuilder.method(original.method, original.body).build()
     return@addInterceptor it.proceed(request)
   }.build()

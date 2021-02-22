@@ -20,14 +20,14 @@ class NewsRepositoryImpl(
   override suspend fun getNews(): UseCaseResult<News> {
     return try {
       // had to remove this as the API wasn't returning on the device or emulator
-      //val result = api.getNews().await()
+      val result = api.getNews().await()
       // reading the file from Assets temporarily to show the app working
-      val fileName = "news.json"
-      val jsonString = context.assets.open(fileName).bufferedReader().use{
-        it.readText()
-      }
-      val result = Gson().fromJson<News>(jsonString, News::class.java)
-      saveNews(result.posts)
+//      val fileName = "news.json"
+//      val jsonString = context.assets.open(fileName).bufferedReader().use{
+//        it.readText()
+//      }
+//      val result = Gson().fromJson<News>(jsonString, News::class.java)
+//      saveNews(result.posts)
       UseCaseResult.Success(result)
     } catch (ex: Exception) {
       UseCaseResult.Error(ex)
